@@ -6,6 +6,12 @@ namespace Project_0.Lib
 {
     public class IsekaiQuest : Games
     {
-        //Contains fields declared in Games
+        IsekaiQuest()
+        {
+            Name = "Isekai Quest";
+            Cost = 29.99;
+            AdvancedCost = 39.99;
+            DeluxeCost = 59.99;
+        }
     }
 }
