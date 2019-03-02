@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Project_0.Lib
 {
-    public class IsekaiQuest : Games
+    public class IsekaiQuest : GamesImp
     {
         IsekaiQuest()
         {
