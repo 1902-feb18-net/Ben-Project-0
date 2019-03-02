@@ -93,14 +93,16 @@ namespace Project0.Context
         {
             OrderId = OrderGame.OrderId,
             GameId = OrderGame.GameId,
-            GameQuantity = OrderGame.GameQuantity
+            GameQuantity = OrderGame.GameQuantity,
+            Edition = OrderGame.Edition
         };
 
         public static OrderGamesImp Map(OrderGames OrderGame) => new OrderGamesImp
         {
             OrderId = OrderGame.OrderId,
             GameId = OrderGame.GameId,
-            GameQuantity = OrderGame.GameQuantity
+            GameQuantity = OrderGame.GameQuantity,
+            Edition = OrderGame.Edition
         };
 
         //Order

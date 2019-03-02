@@ -1,4 +1,5 @@
-﻿using Project0.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Project0.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace Project_0.Lib
             //{
             //    Console.WriteLine($"{num++}. {store.Location}");
             //}
-            return Mapper.Map(_db.Stores.GroupBy(s => s.StoreId));
+            return Mapper.Map(_db.Stores.Include(s => s.StoreId));
 
         }
 

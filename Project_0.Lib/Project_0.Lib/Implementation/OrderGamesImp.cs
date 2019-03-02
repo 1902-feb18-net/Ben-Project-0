@@ -21,5 +21,11 @@ namespace Project_0.Lib
         public int OrderId { get; set; }
         public int GameId { get; set; }
         public int GameQuantity { get; set; }
+
+        public decimal GetCostOfPurchase(OrderImp order, GamesImp game)
+        {
+            decimal cost = 00.00m;
+            return cost;
+        }
     }
 }

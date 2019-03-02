@@ -9,9 +9,9 @@ namespace Project_0.Lib
         IsekaiQuest()
         {
             Name = "Isekai Quest";
-            Cost = 29.99;
-            AdvancedCost = 39.99;
-            DeluxeCost = 59.99;
+            Cost = 29.99m;
+            AdvancedCost = 39.99m;
+            //DeluxeCost = 59.99;
         }
     }
 }

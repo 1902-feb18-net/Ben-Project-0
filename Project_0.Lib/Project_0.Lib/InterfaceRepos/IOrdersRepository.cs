@@ -54,12 +54,14 @@ namespace Project_0.Lib
         /// <summary>
         /// Adds an entry to OrderGames, which records all games and their quantities bought through Orders
         /// Should be called a number of times per order equal to number of game types bought per order
-        /// So if you guy both kinds of games in one order, should be called twice
+        /// So if you buy both kinds of games in one order, should be called twice
         /// </summary>
         /// <param name="Game"></param>
         /// <param name="Order"></param>
         /// <param name="quantity"></param>
         void AddOrderItem(GamesImp Game, OrderImp Order, int quantity);
+
+        decimal GetTotalOrderCost(OrderImp Order, OrderGamesImp OrderGame);
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using Project_0.Lib;
+﻿using Microsoft.EntityFrameworkCore;
+using Project_0.Lib;
 using Project0.Context;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,13 @@ namespace Project_0.Context.Repo
             //{
             //    _db.Add(Mapper.Map(review));
             //}
+        }
+
+        public decimal GetTotalOrderCost(OrderImp Order, OrderGamesImp OrderGame)
+        {
+            var databaseOrder = _db.Orders.Include(r => r.OrderGames).Select(r => r.OrderId == OrderGame.OrderId);
+            decimal TotalCost = 0.0m;
+            return TotalCost;
         }
     }
 }

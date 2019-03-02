@@ -68,18 +68,18 @@ namespace Project_0.Lib
 
         public double TotalCost { get; } //the total cost of all items bought by customer
 
-        public double GetGameCost(GamesImp game, string edition)
-        {
-            //depending on game edition, return the correct price
-            if (edition == "Base")
-                return game.Cost;
-            else if (edition == "Advanced")
-                return game.AdvancedCost;
-            else if (edition == "Deluxe") 
-                return game.DeluxeCost;
-            else
-                return 0;
-        }
+        //public decimal GetGameCost(GamesImp game, string edition)
+        //{
+        //    //depending on game edition, return the correct price
+        //    if (edition == "Base")
+        //        return game.Cost;
+        //    else if (edition == "Advanced")
+        //        return game.AdvancedCost;
+        //    else if (edition == "Deluxe") 
+        //        return game.DeluxeCost;
+        //    else
+        //        return 0;
+        //}
 
         public OrderImp OrderItem(string item, GamesImp game, string edition, int quantity, double shippingCost)
         {
@@ -92,7 +92,7 @@ namespace Project_0.Lib
             if (Items.CheckStock(quantity, game, delux))
             {
                 Items.RemoveFromStock(quantity, game, delux);
-                return new OrderImp(item, IDNumber, OrderDate, Cust, GetGameCost(game, edition), quantity, shippingCost, this);
+                return new OrderImp(item, IDNumber, OrderDate, Cust.Id, shippingCost, quantity, shippingCost, this);
             }
             else
             {

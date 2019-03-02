@@ -17,7 +17,7 @@ namespace Project_0.Lib
         {
             Console.WriteLine();
             Console.WriteLine("Select a store: ");
-            storeRepository.PrintStoreLocations();
+            //storeRepository.PrintStoreLocations();
         }
 
 
