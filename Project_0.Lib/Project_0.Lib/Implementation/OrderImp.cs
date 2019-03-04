@@ -12,14 +12,14 @@ namespace Project_0.Lib
 
         }
 
-        public OrderImp(string item, int ID, DateTime Dt, int customerId, double GameCost, int Quantity, double ShipCosts, StoreImp location)
+        public OrderImp(int ID, DateTime Dt, int customerId, double GameCost, double ShipCosts, StoreImp location)
         {
-            OrderGame = item;
+            //OrderGame = item;
             OrderID = ID;
             OrderDate = Dt;
             OrderCustomer = customerId;
             OrderCost = (decimal)GameCost;
-            OrderQuantity = Quantity;
+            //OrderQuantity = Quantity;
             ShippingCost = ShipCosts;
             StoreId = location.IDNumber;
             Valid = true;
@@ -48,6 +48,8 @@ namespace Project_0.Lib
         public int StoreId { get; set; }
 
         public bool Valid { get; set; } //is the Order cancelled or not?
+        
+        
 
         private double TotalOrderCost()
         {

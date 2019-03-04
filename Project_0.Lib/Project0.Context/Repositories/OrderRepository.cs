@@ -25,6 +25,11 @@ namespace Project_0.Context.Repo
             return Mapper.Map(_db.Orders.First(r => r.OrderId == ID)) ?? throw new ArgumentNullException("ID needs to be valid");
         }
 
+        public IEnumerable<OrderImp> GetAllOrders()
+        {
+            return Mapper.Map(_db.Orders.Include(o => o.OrderGames).ThenInclude(i => i.Game));
+        }
+
         public IEnumerable<OrderImp> GetOrderByDate()
         {
             //foreach (OrderImp r in _Data)
@@ -66,9 +71,9 @@ namespace Project_0.Context.Repo
             _db.SaveChanges(); 
         }
 
-        public void AddOrderItem(GamesImp Game, OrderImp Order, int quantity)
+        public void AddOrderItem(int GameId, int OrderId, int quantity)
         {
-            OrderGamesImp orderGame = new OrderGamesImp(Order.OrderID, Game.Id, quantity);
+            OrderGamesImp orderGame = new OrderGamesImp(OrderId, GameId, quantity);
             _db.OrderGames.Add(Mapper.Map(orderGame));
             _db.SaveChanges();
             //if (restaurant != null)
@@ -88,6 +93,9 @@ namespace Project_0.Context.Repo
         public decimal GetTotalOrderCost(OrderImp Order, OrderGamesImp OrderGame)
         {
             var databaseOrder = _db.Orders.Include(r => r.OrderGames).Select(r => r.OrderId == OrderGame.OrderId);
+
+            //decimal TotalCost = _db.OrderGames.Sum(r => r.GameQuantity)
+
             decimal TotalCost = 0.0m;
             return TotalCost;
         }

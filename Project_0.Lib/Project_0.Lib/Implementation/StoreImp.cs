@@ -92,7 +92,7 @@ namespace Project_0.Lib
             if (Items.CheckStock(quantity, game, delux))
             {
                 Items.RemoveFromStock(quantity, game, delux);
-                return new OrderImp(item, IDNumber, OrderDate, Cust.Id, shippingCost, quantity, shippingCost, this);
+                return new OrderImp(IDNumber, OrderDate, Cust.Id, shippingCost, shippingCost, this);
             }
             else
             {

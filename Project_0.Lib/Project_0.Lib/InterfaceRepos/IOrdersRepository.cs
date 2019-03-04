@@ -14,6 +14,13 @@ namespace Project_0.Lib
         /// <returns></returns>
         OrderImp GetOrderByID(int ID);
 
+
+        /// <summary>
+        /// Retrieve a list of all orders
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<OrderImp> GetAllOrders();
+
         /// <summary>
         /// Search orders by date, from oldest to newest
         /// </summary>
@@ -59,7 +66,7 @@ namespace Project_0.Lib
         /// <param name="Game"></param>
         /// <param name="Order"></param>
         /// <param name="quantity"></param>
-        void AddOrderItem(GamesImp Game, OrderImp Order, int quantity);
+        void AddOrderItem(int GameId, int OrderId, int quantity);
 
         decimal GetTotalOrderCost(OrderImp Order, OrderGamesImp OrderGame);
 
