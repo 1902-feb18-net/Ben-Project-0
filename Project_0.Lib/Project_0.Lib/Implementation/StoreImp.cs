@@ -22,6 +22,7 @@ namespace Project_0.Lib
             get => Location;
             set
             {
+                //System.Console.WriteLine(value);
                 if (value.Length == 0)
                 {
                     throw new ArgumentException("Location name must not be empty", nameof(value));

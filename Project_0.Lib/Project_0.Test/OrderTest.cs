@@ -42,7 +42,8 @@ namespace Project_0.Lib
         [Fact]
         public void OrdersReturnNullWhenThereAreNone()
         {
-            var repo = new OrdersRepository(_db);
+            var repo = new OrderRepository(_db);
+            Assert.Empty(_db.Orders.ToList());
         }
 
         [Fact]
@@ -77,15 +78,15 @@ namespace Project_0.Lib
                 // Run the test against one instance of the context
                 using (var context = new Project0Context(options))
                 {
-                    var orders = new OrdersRepository(context);
+                    var orders = new OrderRepository(context);
 
                     OrderImp _order = new OrderImp(1, DateTime.Now, 1, 19.99, 0.00, new StoreImp("San Francisco"));
                     OrderImp _order2 = new OrderImp(4, DateTime.Now, 1, 19.99, 0.00, new StoreImp("San Francisco"));
-                    OrderGamesImp _orderGame = new OrderGamesImp(1, 2, 5);
+                    OrderGamesImp _orderGame = new OrderGamesImp(1, 2, 3, 2);
 
                     orders.AddOrder(_order);
                     orders.AddOrder(_order2);
-                    orders.AddOrderItem(_orderGame.OrderId, _orderGame.GameId, _orderGame.GameQuantity);
+                    orders.AddOrderItem(_orderGame.OrderId, _orderGame.GameId, _orderGame.GameQuantity, _orderGame.Edition);
 
                     //Tests add order
                     Assert.Equal(_order.OrderID, context.Orders.Find(1).OrderId);
@@ -140,7 +141,7 @@ namespace Project_0.Lib
 
                 using (var context = new Project0Context(options))
                 {
-                    var orders = new OrdersRepository(context);
+                    var orders = new OrderRepository(context);
 
                     //Testing getting order by ID
                     OrderImp _order = new OrderImp(1, DateTime.Now, 1, 29.99, 0.00, new StoreImp("San Francisco"));
@@ -204,5 +205,63 @@ namespace Project_0.Lib
                 connection.Close();
             }
         }
+
+        //[Fact]
+        //public void Test_Get_Total_Cost()
+        //{
+        //    // In-memory database only exists while the connection is open
+        //    var connection = new SqliteConnection("DataSource=:memory:");
+        //    connection.Open();
+
+        //    try
+        //    {
+        //        var options = new DbContextOptionsBuilder<Project0Context>().UseSqlite(connection).Options;
+
+        //        // Create the schema in the database
+        //        using (var context = new Project0Context(options))
+        //        {
+        //            context.Database.EnsureCreated();
+        //        }
+
+        //        // Run the test against one instance of the context
+        //        using (var context = new Project0Context(options))
+        //        {
+        //            var orders = new OrdersRepository(context);
+
+        //            //create game for orderitem to use
+        //            OrderImp _order = new OrderImp(1, DateTime.Now, 1, 19.99, 0.00, new StoreImp("San Francisco"));
+        //            OrderImp _order2 = new OrderImp(4, DateTime.Now, 1, 19.99, 0.00, new StoreImp("San Francisco"));
+        //            OrderGamesImp _orderGame = new OrderGamesImp(1, 2, 3, 2);
+
+        //            orders.AddOrderItem(_orderGame.OrderId, _orderGame.GameId, _orderGame.GameQuantity, _orderGame.Edition/*, _orderGame.GetCostOfPurchase()*/);
+        //            orders.AddOrder(_order);
+        //            orders.AddOrder(_order2);
+
+                    
+
+        //            //Tests add order
+        //            Assert.Equal(_order.OrderID, context.Orders.Find(1).OrderId);
+        //            Assert.Equal(_order2.OrderID, context.Orders.Find(4).OrderId);
+
+        //            //Tests add orderItem
+        //            Assert.Equal(_orderGame.OrderId, context.OrderGames.Find(1, 2).OrderId);
+        //            Assert.Equal(_orderGame.GameId, context.OrderGames.Find(1, 2).GameId);
+        //        }
+
+        //        // Use a separate instance of the context to verify correct data was saved to database
+        //        using (var context = new Project0Context(options))
+        //        {
+        //            OrderImp _order = new OrderImp(1, DateTime.Now, 1, 19.99, 0.00, new StoreImp("San Francisco"));
+        //            OrderImp _order2 = new OrderImp(4, DateTime.Now, 1, 19.99, 0.00, new StoreImp("San Francisco"));
+
+        //            Assert.Equal(_order.OrderID, context.Orders.Find(1).OrderId);
+        //            Assert.Equal(_order2.OrderID, context.Orders.Find(4).OrderId);
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        connection.Close();
+        //    }
+        //}
     }
 }

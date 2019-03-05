@@ -9,6 +9,7 @@ namespace Project0.Context
 {
     public static class Mapper
     {
+
         public static Orders Map(OrderImp Order) => new Orders
         {
             OrderId = Order.OrderID,
@@ -24,7 +25,9 @@ namespace Project0.Context
             OrderDate = Order.OrderDate,
             OrderCustomer = Order.OrderCustomerId,
             OrderCost = Order.OrderCost,
-            StoreId = Order.OrderStoreId
+            StoreId = Order.OrderStoreId,
+
+            GamesInOrder = Map(Order.OrderGames).ToList(),            
         };
 
         public static Stores Map(StoreImp Store) => new Stores
@@ -94,7 +97,8 @@ namespace Project0.Context
             OrderId = OrderGame.OrderId,
             GameId = OrderGame.GameId,
             GameQuantity = OrderGame.GameQuantity,
-            Edition = OrderGame.Edition
+            Edition = OrderGame.Edition,
+            Price = OrderGame.Price
         };
 
         public static OrderGamesImp Map(OrderGames OrderGame) => new OrderGamesImp
@@ -102,7 +106,10 @@ namespace Project0.Context
             OrderId = OrderGame.OrderId,
             GameId = OrderGame.GameId,
             GameQuantity = OrderGame.GameQuantity,
-            Edition = OrderGame.Edition
+            Edition = OrderGame.Edition,
+            Price = OrderGame.Price,
+            
+            Game = Map(OrderGame.Game)
         };
 
         //Order

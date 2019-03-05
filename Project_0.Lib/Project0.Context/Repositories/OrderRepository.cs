@@ -8,12 +8,12 @@ using System.Text;
 
 namespace Project_0.Context.Repo
 {
-    public class OrdersRepository : IOrdersRepository
+    public class OrderRepository : IOrdersRepository
     {
 
         private readonly Project0Context _db;
 
-        public OrdersRepository(Project0Context db)
+        public OrderRepository(Project0Context db)
         {
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
@@ -71,9 +71,10 @@ namespace Project_0.Context.Repo
             _db.SaveChanges(); 
         }
 
-        public void AddOrderItem(int GameId, int OrderId, int quantity)
+        public void AddOrderItem(int OrderId, int GameId, int quantity, int edition)
         {
-            OrderGamesImp orderGame = new OrderGamesImp(OrderId, GameId, quantity);
+            OrderGamesImp orderGame = new OrderGamesImp(OrderId, GameId, quantity, edition);
+            orderGame.Price = orderGame.GetCostOfPurchase();
             _db.OrderGames.Add(Mapper.Map(orderGame));
             _db.SaveChanges();
             //if (restaurant != null)

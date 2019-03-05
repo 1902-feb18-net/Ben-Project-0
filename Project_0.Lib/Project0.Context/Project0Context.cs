@@ -94,6 +94,8 @@ namespace Project0.Context
 
                 entity.ToTable("OrderGames", "Project0");
 
+                entity.Property(e => e.Price).HasColumnType("money");
+
                 entity.HasOne(d => d.Game)
                     .WithMany(p => p.OrderGames)
                     .HasForeignKey(d => d.GameId)

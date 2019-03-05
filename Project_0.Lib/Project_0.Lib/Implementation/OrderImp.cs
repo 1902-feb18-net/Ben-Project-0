@@ -48,13 +48,17 @@ namespace Project_0.Lib
         public int StoreId { get; set; }
 
         public bool Valid { get; set; } //is the Order cancelled or not?
-        
-        
 
-        private double TotalOrderCost()
+        public List<OrderGamesImp> GamesInOrder;
+
+        private decimal TotalOrderCost()
         {
-            //OrderCost = OrderQuantity * OrderCost + ShippingCost
-            return OrderQuantity * (double)OrderCost + ShippingCost;
+            OrderCost = 000.00m;
+            for (int i = 0; i < GamesInOrder.Count; i++)
+            {
+                OrderCost += GamesInOrder[i].GetCostOfPurchase();
+            }
+            return OrderCost;
         }
 
         public void DisplayData()

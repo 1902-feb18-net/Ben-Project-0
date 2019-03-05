@@ -18,13 +18,7 @@ namespace Project_0.Lib
 
         public IEnumerable<StoreImp> GetStores()
         {
-            //int num = 1;
-            //foreach (StoreImp store in _db.Stores)
-            //{
-            //    Console.WriteLine($"{num++}. {store.Location}");
-            //}
-            return Mapper.Map(_db.Stores.Include(s => s.StoreId));
-
+            return Mapper.Map(_db.Stores);
         }
 
         public StoreImp GetStoreByLocation(int Id)
