@@ -43,7 +43,9 @@ namespace Project0.Context
             IDNumber = Store.StoreId,
             Location = Store.Location,
             DeluxeInStock = Store.DeluxePackageRemaining,
-            ShippingCosts = Store.ShippingCosts
+            ShippingCosts = Store.ShippingCosts,
+
+            ListOfOrders = Map(Store.Orders).ToList()
         };
 
         public static Customers Map(CustomerImp Customer) => new Customers

@@ -11,6 +11,7 @@ namespace Project_0.Lib
             get => FirstName;
             set
             {
+                Console.WriteLine(value);
                 // "value" is the value passed to the setter.
                 if (value.Length == 0)
                 {

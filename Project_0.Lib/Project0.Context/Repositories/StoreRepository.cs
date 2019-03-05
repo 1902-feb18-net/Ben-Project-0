@@ -18,7 +18,7 @@ namespace Project_0.Lib
 
         public IEnumerable<StoreImp> GetStores()
         {
-            return Mapper.Map(_db.Stores);
+            return Mapper.Map(_db.Stores.Include(s => s.Orders));
         }
 
         public StoreImp GetStoreByLocation(int Id)

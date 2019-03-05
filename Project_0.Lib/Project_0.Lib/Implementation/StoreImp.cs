@@ -22,7 +22,7 @@ namespace Project_0.Lib
             get => Location;
             set
             {
-                //System.Console.WriteLine(value);
+                System.Console.WriteLine(value);
                 if (value.Length == 0)
                 {
                     throw new ArgumentException("Location name must not be empty", nameof(value));
@@ -82,6 +82,8 @@ namespace Project_0.Lib
         //        return 0;
         //}
 
+        public List<OrderImp> ListOfOrders; 
+        
         public OrderImp OrderItem(string item, GamesImp game, string edition, int quantity, double shippingCost)
         {
             //reference to Order class

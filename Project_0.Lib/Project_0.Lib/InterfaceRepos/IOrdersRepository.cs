@@ -68,7 +68,6 @@ namespace Project_0.Lib
         /// <param name="quantity"></param>
         void AddOrderItem(int GameId, int OrderId, int quantity, int edition);
 
-        decimal GetTotalOrderCost(OrderImp Order, OrderGamesImp OrderGame);
 
     }
 }

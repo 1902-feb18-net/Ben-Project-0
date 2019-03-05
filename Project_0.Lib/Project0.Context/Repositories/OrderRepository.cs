@@ -91,14 +91,5 @@ namespace Project_0.Context.Repo
             //}
         }
 
-        public decimal GetTotalOrderCost(OrderImp Order, OrderGamesImp OrderGame)
-        {
-            var databaseOrder = _db.Orders.Include(r => r.OrderGames).Select(r => r.OrderId == OrderGame.OrderId);
-
-            //decimal TotalCost = _db.OrderGames.Sum(r => r.GameQuantity)
-
-            decimal TotalCost = 0.0m;
-            return TotalCost;
-        }
     }
 }
