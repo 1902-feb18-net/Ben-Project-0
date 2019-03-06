@@ -71,6 +71,12 @@ namespace Project_0.Context.Repo
             return Mapper.Map(value);
         }
 
+        public int GetMostPopularGame()
+        {
+            var value = _db.OrderGames.GroupBy(o => o.GameId).Select(g => new { GameId = g.Key, Sum = g.Sum(o => o.GameQuantity) }).OrderBy(x => x.GameId);
+            return value.Max(x => x.Sum);            
+        }
+
         public void DeactiveOrder(OrderImp order)
         {
             order.Valid = false;

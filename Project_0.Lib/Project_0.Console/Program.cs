@@ -43,39 +43,50 @@ namespace Project_0.Lib
 
             CustomerSelect:
             storeSelection = StoreRepository.GetStores().ToList().Count + 1;
-            while (storeSelection == StoreRepository.GetStores().ToList().Count + 1) //Return to customer selection screen
-            {
-                Console.WriteLine();
-                Console.WriteLine("Press 1 to view all customers.  Press 2 to search for a customer by name.");
-                customerOptionSelect = Convert.ToInt32(Console.ReadLine());
 
-                if (customerOptionSelect == 1)
+            Console.WriteLine();
+            Console.WriteLine("Press 1 to view all customers.  \nPress 2 to search for a customer by name.");
+            Console.WriteLine($"Press 3 to view statistics.");
+
+            customerOptionSelect = Convert.ToInt32(Console.ReadLine());
+
+            if (customerOptionSelect == 1)
+            {
+                CustomerScreen(CustomerRepository);
+                customerSelection = Convert.ToInt32(Console.ReadLine());
+                if (!CustomerRepository.IsValidId(customerSelection))
                 {
-                    CustomerScreen(CustomerRepository);
-                    customerSelection = Convert.ToInt32(Console.ReadLine());
-                    if (!CustomerRepository.IsValidId(customerSelection))
-                    {
-                        Console.WriteLine("Please input a valid customer ID");
-                        goto CustomerSelect;
-                    }
-                    StoreScreen(StoreRepository);
-                    storeSelection = Convert.ToInt32(Console.ReadLine());
-                }
-                else if (customerOptionSelect == 2)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Enter a full name: ");
-                    name = Console.ReadLine();
-                    storeSelection = StoreRepository.GetStores().ToList().Count + 2;
-                }
-                else
-                {
-                    Console.WriteLine("Please enter a valid input.");
+                    Console.WriteLine("Please input a valid customer ID");
                     goto CustomerSelect;
                 }
             }
+            else if (customerOptionSelect == 2)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Enter a full name: ");
+                name = Console.ReadLine();
+                //storeSelection = StoreRepository.GetStores().ToList().Count + 2;
+            }
+            else if (customerOptionSelect == 3)
+            {
+                int popId = OrdersRepository.GetMostPopularGame();
+                Console.WriteLine();
+                Console.WriteLine($"The most popular game is {GamesRepository.GetGameById(popId)}");
+                goto CustomerSelect;
+            }
+            else
+            {
+                Console.WriteLine("Please enter a valid input.");
+                goto CustomerSelect;
+            }
+
+            StoreScreen(StoreRepository);
+            storeSelection = Convert.ToInt32(Console.ReadLine());
+
             CustomerImp selectedCustomer;
-            StoreImp selectedStore;// = StoreRepository.GetStoreByLocation(storeSelection); 
+            StoreImp selectedStore;// = StoreRepository.GetStoreByLocation(storeSelection);
+            List<CustomerImp> ListOfCustomers = CustomerRepository.GetCustomers().ToList();
+
             if (customerOptionSelect == 1)
                 selectedCustomer = CustomerRepository.GetCustomerById(customerSelection); //Get the chosen customer by ID
             else if (customerOptionSelect == 2)
@@ -113,7 +124,10 @@ namespace Project_0.Lib
                     goto CustomerSelect;
                 }
             }
-
+            else if (storeSelection == StoreRepository.GetStores().ToList().Count + 1)
+            {
+                goto CustomerSelect;
+            }
 
             StoreSelect:
             selectedStore = StoreRepository.GetStoreByLocation(storeSelection); //Get the chosen store
@@ -208,6 +222,7 @@ namespace Project_0.Lib
                     }
 
                     GamesImp selectedGame = GamesRepository.GetGameById(gameSelect);
+                    selectedCustomer.LastGameBoughtId = selectedGame.Id;
 
                     EditionSelect:
                     Console.WriteLine();
@@ -298,7 +313,19 @@ namespace Project_0.Lib
                 goto OptionSelect;
             }
 
-
+            FinalMenu();
+            int input = Convert.ToInt32(Console.ReadLine());
+            switch (input)
+            {
+                case 1:
+                    StoreScreen(StoreRepository);
+                    storeSelection = Convert.ToInt32(Console.ReadLine());
+                    goto StoreSelect;
+                case 2:
+                    goto CustomerSelect;
+                default:
+                    break;
+            }
 
 
 
@@ -377,13 +404,25 @@ namespace Project_0.Lib
             Console.WriteLine();
             Console.WriteLine("Select a game to add to purchase.");
             List<GamesImp> ListOfGames = gamesRepository.GetAllGames().ToList();
-            for (int i = 0; i < ListOfGames.Count; i++)
-            {
-                Console.WriteLine($"{ListOfGames[i].Id}: {ListOfGames[i].Name}");
-            }
             if (customer.LastGameBoughtId + 1 > ListOfGames.Count)
                 customer.LastGameBoughtId = 0;
-            Console.WriteLine($"Press {ListOfGames.Count + 1} to add {gamesRepository.GetGameById(++customer.LastGameBoughtId).Name} (recommended)");
+            for (int i = 0; i < ListOfGames.Count; i++)
+            {
+                if (ListOfGames[i].Id == customer.LastGameBoughtId + 1)
+                    Console.WriteLine($"{ListOfGames[i].Id}: {ListOfGames[i].Name} (recommended)");
+                else
+                    Console.WriteLine($"{ListOfGames[i].Id}: {ListOfGames[i].Name}");
+            }
+            customer.LastGameBoughtId++;
+        }
+
+        public static void FinalMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Press 1 to go back to the store select menu.\n" +
+                "Press 2 to go back to the customer select menu.\n" +
+                "Press 3 to quit.");
+
         }
     }
 }

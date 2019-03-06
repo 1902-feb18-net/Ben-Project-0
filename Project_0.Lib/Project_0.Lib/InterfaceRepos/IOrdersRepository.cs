@@ -74,5 +74,8 @@ namespace Project_0.Lib
 
         IEnumerable<OrderImp> GetAllOrdersByCustomer(int Id);
 
+        int GetMostPopularGame();
+
+
     }
 }
