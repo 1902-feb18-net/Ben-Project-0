@@ -66,9 +66,12 @@ ALTER TABLE Project0.Customers ADD
 ALTER TABLE Project0.Stores
 ALTER COLUMN ShippingCosts MONEY NOT NULL
 
+ALTER TABLE Project0.OrderGames
+ADD Price MONEY NOT NULL 
+
 UPDATE Project0.Stores SET ShippingCosts = 0.00 WHERE ShippingCosts IS NULL
 
-SELECT * FROM Project0.Stores
+SELECT * FROM Project0.OrderGames
 --CREATE TABLE Project0.Orders (
 --	OrderId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 --	GameName NVARCHAR(100) NOT NULL,
@@ -100,14 +103,28 @@ VALUES ('IsekaiQuest', 29.99, 39.99)
 INSERT INTO Project0.Games (GameName, StandardPrice, AdvancedPrice)
 VALUES ('ShonenAdventure', 19.99, 29.99)
 
+INSERT INTO Project0.Customers(FirstName, LastName, DefaultStoreId)
+VALUES ('Lisa', 'NewGirl', 1)
+
+INSERT INTO Project0.Orders(OrderDate, OrderCustomerId, OrderCost, OrderStoreId)
+VALUES ('2019-01-22 03:45:22', 1,  49.98, 1)
+
+INSERT INTO Project0.OrderGames(OrderId, GameId, GameQuantity, Edition, Price)
+VALUES (1, 2, 1, 1, 0.0)
 --CREATE TABLE Project0.Customers (
 --	CustomerId INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 --	FirstName NVARCHAR(100) NOT NULL,
 --	LastName NVARCHAR(100) NOT NULL
 --)
 
-SELECT * FROM Project0.Games
+SELECT * FROM Project0.Orders
+SELECT * FROM Project0.OrderGames
 
+SELECT * FROM Project0.Inventory
+
+SELECT * FROM Project0.Stores
+
+DELETE FROM Project0.Orders WHERE OrderId = 13;
 --UPDATE Project0.Stores SET Location = 'Los Angelos' WHERE Location = 'Las Angelos'
 
 --ALTER TABLE Project0.Orders ADD
@@ -115,3 +132,4 @@ SELECT * FROM Project0.Games
 
 --CREATE SCHEMA Project0
 
+SELECT * FROM Project0.Customers

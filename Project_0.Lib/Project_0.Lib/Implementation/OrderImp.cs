@@ -9,16 +9,16 @@ namespace Project_0.Lib
 
         public OrderImp()
         {
-
+            GamesInOrder = new List<OrderGamesImp>();
         }
 
-        public OrderImp(int ID, DateTime Dt, int customerId, double GameCost, double ShipCosts, StoreImp location)
+        public OrderImp(DateTime Dt, int customerId, decimal ShipCosts, StoreImp location)
         {
             //OrderGame = item;
-            OrderID = ID;
+            //OrderID = ID;
             OrderDate = Dt;
             OrderCustomer = customerId;
-            OrderCost = (decimal)GameCost;
+            //OrderCost = (decimal)GameCost;
             //OrderQuantity = Quantity;
             ShippingCost = ShipCosts;
             StoreId = location.IDNumber;
@@ -32,7 +32,7 @@ namespace Project_0.Lib
         public decimal OrderCost { get; set; } //How expensive the game was, excluding shipping
         private int OrderQuantity { get; set; }//How many items were ordered
 
-        private double ShippingCost //How much shipping cost total
+        private decimal ShippingCost //How much shipping cost total
         {
             get => ShippingCost;
             set
@@ -51,7 +51,7 @@ namespace Project_0.Lib
 
         public List<OrderGamesImp> GamesInOrder;
 
-        private decimal TotalOrderCost()
+        public decimal TotalOrderCost()
         {
             OrderCost = 000.00m;
             for (int i = 0; i < GamesInOrder.Count; i++)

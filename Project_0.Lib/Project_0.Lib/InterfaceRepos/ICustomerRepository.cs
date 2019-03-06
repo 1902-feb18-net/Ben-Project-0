@@ -9,5 +9,10 @@ namespace Project_0.Lib.InterfaceRepos
         IEnumerable<CustomerImp> GetCustomers();
 
         CustomerImp GetCustomerById(int Id);
+
+        bool IsValidId(int Id);
+
+        CustomerImp GetCustomerByName(string fullName);
+
     }
 }

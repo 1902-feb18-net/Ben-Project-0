@@ -15,7 +15,7 @@ namespace Project0.Context
             OrderId = Order.OrderID,
             OrderDate = Order.OrderDate,
             OrderCustomerId = Order.OrderCustomer,
-            OrderCost = Order.OrderCost,
+            OrderCost = Order.TotalOrderCost(),
             OrderStoreId = Order.StoreId
         };
 
@@ -61,7 +61,9 @@ namespace Project0.Context
             Id = Customer.CustomerId,
             FirstName = Customer.FirstName,
             LastName = Customer.LastName,
-            DefaultStoreId = Customer.DefaultStoreId
+            DefaultStoreId = Customer.DefaultStoreId,
+
+            OrdersByCustomer = Map(Customer.Orders).ToList()
         };
 
         public static Games Map(GamesImp Game) => new Games

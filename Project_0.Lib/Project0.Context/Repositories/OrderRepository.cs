@@ -30,34 +30,45 @@ namespace Project_0.Context.Repo
             return Mapper.Map(_db.Orders.Include(o => o.OrderGames).ThenInclude(i => i.Game));
         }
 
-        public IEnumerable<OrderImp> GetOrderByDate()
+        public IEnumerable<OrderImp> GetOrderByDate(StoreImp store)
         {
             //foreach (OrderImp r in _Data)
             //{
             //    yield return r;
             //}
-            return Mapper.Map(_db.Orders.OrderBy(r => r.OrderDate));
+            return Mapper.Map(_db.Orders.OrderBy(r => r.OrderDate).Where(r => r.OrderStoreId == store.IDNumber));
         }
 
-        public IEnumerable<OrderImp> GetOrderByDateReverse()
+        public IEnumerable<OrderImp> GetOrderByDateReverse(StoreImp store)
         {
             //foreach (OrderImp r in _Data)
             //{
             //    yield return r;
-            //}
-            return Mapper.Map(_db.Orders.OrderByDescending(r => r.OrderDate));
+            //} 
+            return Mapper.Map(_db.Orders.OrderByDescending(r => r.OrderDate).Where(r => r.OrderStoreId == store.IDNumber));
 
         }
 
-        public IEnumerable<OrderImp> GetOrderByCost()
+        public IEnumerable<OrderImp> GetOrderByCost(StoreImp store)
         {
-            return Mapper.Map(_db.Orders.OrderBy(r => r.OrderCost));
+            return Mapper.Map(_db.Orders.OrderBy(r => r.OrderCost).Where(r => r.OrderStoreId == store.IDNumber));
         }
 
-        public IEnumerable<OrderImp> GetOrderByCostReverse()
+        public IEnumerable<OrderImp> GetOrderByCostReverse(StoreImp store)
         {
-            return Mapper.Map(_db.Orders.OrderByDescending(r => r.OrderCost));
+            return Mapper.Map(_db.Orders.OrderByDescending(r => r.OrderCost).Where(r => r.OrderStoreId == store.IDNumber));
 
+        }
+
+        public OrderImp GetExactOrderByDate(DateTime dt)
+        {
+            return Mapper.Map(_db.Orders.First(o => o.OrderDate == dt));
+        }
+
+        public IEnumerable<OrderImp> GetAllOrdersByCustomer(int Id)
+        {
+            var value = _db.Orders.Where(o => o.OrderCustomerId == Id);
+            return Mapper.Map(value);
         }
 
         public void DeactiveOrder(OrderImp order)
@@ -71,9 +82,9 @@ namespace Project_0.Context.Repo
             _db.SaveChanges(); 
         }
 
-        public void AddOrderItem(int OrderId, int GameId, int quantity, int edition)
+        public void AddOrderItem(OrderGamesImp _orderGame)
         {
-            OrderGamesImp orderGame = new OrderGamesImp(OrderId, GameId, quantity, edition);
+            OrderGamesImp orderGame = _orderGame;
             orderGame.Price = orderGame.GetCostOfPurchase();
             _db.OrderGames.Add(Mapper.Map(orderGame));
             _db.SaveChanges();
@@ -89,6 +100,12 @@ namespace Project_0.Context.Repo
             //{
             //    _db.Add(Mapper.Map(review));
             //}
+        }
+
+        public bool IsValidId(int Id)
+        {
+            var value = _db.Orders.Find(Id);
+            return value != null;
         }
 
     }

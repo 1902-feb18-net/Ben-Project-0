@@ -13,11 +13,12 @@ namespace Project_0.Lib
         public int GameId { get; set; }
         public int GameInStock { get; set; }
 
-        public void RemoveFromStock(int number, GamesImp item, bool delux)
+        public void RemoveFromStock(int number, GamesImp item)
         {
             //Runs when order is formed, includes item and possible delux objects
             //Checks if delux is true, if so, remove from DeluxInStock as well
             //If anything being removed doesn't have any more stock available, throw error message
+
         }
 
         public bool CheckStock(int number, GamesImp item,  bool delux)

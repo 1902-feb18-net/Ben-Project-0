@@ -25,25 +25,27 @@ namespace Project_0.Lib
         /// Search orders by date, from oldest to newest
         /// </summary>
         /// <returns></returns>
-        IEnumerable<OrderImp> GetOrderByDate();
+        IEnumerable<OrderImp> GetOrderByDate(StoreImp store);
 
         /// <summary>
         /// Search orders by date, from newest to oldest
         /// </summary>
         /// <returns></returns>
-        IEnumerable<OrderImp> GetOrderByDateReverse();
+        IEnumerable<OrderImp> GetOrderByDateReverse(StoreImp store);
 
         /// <summary>
         /// Searches order by cost, from most expensive to least
         /// </summary>
         /// <returns></returns>
-        IEnumerable<OrderImp> GetOrderByCost();
+        IEnumerable<OrderImp> GetOrderByCost(StoreImp store);
 
         /// <summary>
         /// Searches orders by cost, from least expensive to most
         /// </summary>
         /// <returns></returns>
-        IEnumerable<OrderImp> GetOrderByCostReverse();
+        IEnumerable<OrderImp> GetOrderByCostReverse(StoreImp store);
+
+        OrderImp GetExactOrderByDate(DateTime dt);
 
         /// <summary>
         /// Deactivates Order
@@ -66,8 +68,11 @@ namespace Project_0.Lib
         /// <param name="Game"></param>
         /// <param name="Order"></param>
         /// <param name="quantity"></param>
-        void AddOrderItem(int GameId, int OrderId, int quantity, int edition);
+        void AddOrderItem(OrderGamesImp _orderGame);
 
+        bool IsValidId(int Id);
+
+        IEnumerable<OrderImp> GetAllOrdersByCustomer(int Id);
 
     }
 }

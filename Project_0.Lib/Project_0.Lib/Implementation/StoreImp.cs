@@ -17,44 +17,49 @@ namespace Project_0.Lib
             Location = Local;
         }
 
+        private string _location;
+
         public string Location //the location of store???
         {
-            get => Location;
+            get => _location;
             set
             {
-                System.Console.WriteLine(value);
                 if (value.Length == 0)
                 {
                     throw new ArgumentException("Location name must not be empty", nameof(value));
                 }
-                Location = value;
+                _location = value;
             }
         }
+
+        private double _distance;
 
         public double Distance //player enters distance in miles to help calc shipping costs
 
         {
-            get => Distance;
+            get => _distance;
             set
             {
                 if (value <= 0)
                 {
                     throw new ArgumentException("Distance cannot be negative", nameof(value));
                 }
-                Distance = value;
+                _distance = value;
             }
         }
 
+        private decimal _shippingCosts;
+
         public decimal ShippingCosts //distance is multiplied by some num for costs
         {
-            get => ShippingCosts;
+            get => _shippingCosts;
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
-                    throw new ArgumentException("Distance cannot be negative", nameof(value));
+                    throw new ArgumentException("shipping costs cannot be negative", nameof(value));
                 }
-                ShippingCosts = value;
+                _shippingCosts = value;
             }
         } 
 
@@ -84,25 +89,20 @@ namespace Project_0.Lib
 
         public List<OrderImp> ListOfOrders; 
         
-        public OrderImp OrderItem(string item, GamesImp game, string edition, int quantity, double shippingCost)
+        public bool CheckIfOrderIsReady(CustomerImp customer)
         {
-            //reference to Order class
-            //add Order to OrderRepository
-            bool delux = false;
-            if (edition == "Deluxe")
-                delux = true;
-
-            if (Items.CheckStock(quantity, game, delux))
+            for (int i = 0; i < ListOfOrders.Count; i++)
             {
-                Items.RemoveFromStock(quantity, game, delux);
-                return new OrderImp(IDNumber, OrderDate, Cust.Id, shippingCost, shippingCost, this);
+                if (ListOfOrders[i].OrderCustomer == customer.Id)
+                {
+                    DateTime dateTime1 = ListOfOrders[i].OrderDate;
+                    DateTime dateTime2 = DateTime.Now;
+                    if (dateTime2.Hour - dateTime1.Hour >= 2) { }
+                    else
+                        return false;
+                }
             }
-            else
-            {
-                throw new ArgumentException("There isn't enough inventory left for that item");
-            }
-
-            //While multiple of the same game can be ordered, they must be the same game and the same types, no "1 standard and 1 advanced" or "1 shonen standard and 1 isekai standard"
+            return true;
         }
 
         public bool RecommendedGame()

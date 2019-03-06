@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Project_0.Lib;
 
-namespace Project_0.Lib
+
+namespace Project_0.Context.Repo
 {
     public class StoreRepository : IStoreRepository
     {
@@ -23,10 +25,34 @@ namespace Project_0.Lib
 
         public StoreImp GetStoreByLocation(int Id)
         {
-            //goes through _Data looking for the specified location
-            //returns the store at the specified location
-            //return _Data.First(s => s.Location == location);
-            return Mapper.Map(_db.Stores.First(s => s.StoreId == Id));
+            var value = _db.Stores.First(s => s.StoreId == Id) ?? throw new ArgumentException("Enter valid store  ID");
+            return Mapper.Map(value);
+        }
+
+        public bool IsValidId(int Id)
+        {
+            var value = _db.Stores.Find(Id);
+            return value != null;
+        }
+
+        public InventoryImp GetInventory(GamesImp game, StoreImp store)
+        {
+            var value = _db.Inventory.First(i => i.GameId == game.Id && i.StoreId == store.IDNumber);
+            return Mapper.Map(value);
+        }
+
+        public void RemoveFromStock(int quantity, GamesImp game, StoreImp store)
+        {
+            var value = _db.Inventory.First(i => i.GameId == game.Id && i.StoreId == store.IDNumber);
+            value.GameRemaining -= quantity;
+            _db.SaveChanges();
+        }
+
+        public void RemoveDeluxeFromStock(int quantity, int storeId)
+        {
+            var value = _db.Stores.First(s => s.StoreId == storeId);
+            value.DeluxePackageRemaining -= quantity;
+            _db.SaveChanges();
         }
     }
 }
