@@ -24,7 +24,7 @@ namespace Project_0.Context.Repo
             //returns null if ID doesn't exist
             return Mapper.Map(_db.Orders.First(r => r.OrderId == ID)) ?? throw new ArgumentNullException("ID needs to be valid");
         }
-
+        
         public IEnumerable<OrderImp> GetAllOrders()
         {
             return Mapper.Map(_db.Orders.Include(o => o.OrderGames).ThenInclude(i => i.Game));

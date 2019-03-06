@@ -22,7 +22,7 @@ namespace Project_0.Lib
             Console.WriteLine("Order Games");
             var optionsBuilder = new DbContextOptionsBuilder<Project0Context>();
             optionsBuilder.UseSqlServer(SecretConfiguration.ConnectionString);
-            //optionsBuilder.UseLoggerFactory(AppLoggerFactory);
+            optionsBuilder.UseLoggerFactory(AppLoggerFactory);
             var options = optionsBuilder.Options;
 
             var dbContext = new Project0Context(options);
@@ -370,11 +370,11 @@ namespace Project_0.Lib
         public static void ViewOrdersScreen()
         {
             Console.WriteLine();
-            Console.WriteLine("Press 1 to view all orders from most to least recent." +
-                "\nPress 2 to view all orders from least to most recent." +
+            Console.WriteLine("Press 1 to view all orders from least to most recent." +
+                "\nPress 2 to view all orders from most to least recent." +
                 "\nPress 3 to view all order from most to least expensive." +
                 "\nPress 4 to view all orders from least to most expensive." +
-                "\nPress 4 to search for an order by a specific ID." +
+                //"\nPress 4 to search for an order by a specific ID." +
                 "\nPress 5 to return to options screen.");
         }
 
@@ -384,11 +384,11 @@ namespace Project_0.Lib
             Console.WriteLine($"Order ID: {order.OrderID},\n Customer ID: {order.OrderCustomer},\n " +
                 $"Order Cost: {order.OrderCost},\n Order Date: {order.OrderDate}" +
                 $"\n Order Location: {storeRepository.GetStoreByLocation(order.StoreId).Location}");
-            Console.WriteLine("List of games in purchase: ");
-            for (int i = 0; i < order.GamesInOrder.Count; i++)
-            {
-                Console.WriteLine(order.GamesInOrder[i].Game.Name);
-            }
+            //Console.WriteLine("List of games in purchase: ");
+            //for (int i = 0; i < order.GamesInOrder.Count; i++)
+            //{
+            //    Console.WriteLine(order.GamesInOrder[i].Game.Name);
+            //}
         }
 
         public static void ViewAllOrdersInList(List <OrderImp> orderList, IStoreRepository storeRepository)

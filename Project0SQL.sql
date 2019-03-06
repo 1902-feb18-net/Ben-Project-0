@@ -122,9 +122,20 @@ SELECT * FROM Project0.OrderGames
 
 SELECT * FROM Project0.Inventory
 
+
 SELECT * FROM Project0.Stores
 
 DELETE FROM Project0.Orders WHERE OrderId = 13;
+
+SELECT SUM(og.GameQuantity) as [Total per Game], og.GameId 
+FROM Project0.OrderGames AS og
+GROUP BY og.GameId
+
+
+--SELECT BillingCountry, COUNT(BillingCountry) as [Total Invoices]
+--FROM dbo.Invoice
+--GROUP BY BillingCountry
+--ORDER BY [Total Invoices] DESC
 --UPDATE Project0.Stores SET Location = 'Los Angelos' WHERE Location = 'Las Angelos'
 
 --ALTER TABLE Project0.Orders ADD
